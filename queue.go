@@ -58,10 +58,10 @@ func (Q *Queue) Peek() *Node {
 	return Q.start
 }
 
-// Remove 移除指定节点
-func (Q *Queue) Remove(n *Node) {
+// RemoveByNode 移除指定节点
+func (Q *Queue) RemoveByNode(n *Node) bool {
 	if Q.length == 0 || n == nil {
-		return
+		return false
 	}
 
 	// 如果移除的是队列的第一个元素
@@ -72,7 +72,7 @@ func (Q *Queue) Remove(n *Node) {
 			Q.end = nil
 		}
 		Q.length--
-		return
+		return true
 	}
 
 	// 找到n的前一个节点
@@ -83,7 +83,7 @@ func (Q *Queue) Remove(n *Node) {
 
 	if prevNode == nil {
 		// 没有找到n的前一个节点（n不在队列中）
-		return
+		return false
 	}
 
 	// 移除节点n
@@ -93,6 +93,15 @@ func (Q *Queue) Remove(n *Node) {
 		Q.end = prevNode
 	}
 	Q.length--
+	return true
+}
+
+// RemoveByValue 根据值移除节点
+func (Q *Queue) RemoveByValue(value interface{}) bool {
+	if Q.length == 0 {
+		return false
+	}
+	return Q.RemoveByNode(Q.IsExist(value))
 }
 
 // Traverse 遍历队列
