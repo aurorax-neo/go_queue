@@ -106,14 +106,14 @@ func (Q *Queue) Traverse(cb func(n *Node)) {
 }
 
 // IsExist 检查队列中是否存在某个值
-func (Q *Queue) IsExist(value interface{}) bool {
+func (Q *Queue) IsExist(value interface{}) *Node {
 	if Q.length == 0 {
-		return false
+		return nil
 	}
 	for n := Q.start; n != nil; n = n.next {
 		if n.Value == value {
-			return true
+			return n
 		}
 	}
-	return false
+	return nil
 }
